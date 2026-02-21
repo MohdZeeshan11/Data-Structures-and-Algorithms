@@ -1,0 +1,53 @@
+time complexity O(m * log maxQuantity)
+
+```java
+class Solution {
+    public int minimizedMaximum(int n, int[] quantities) {
+
+        int min = 1;
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < quantities.length; i++) {
+            max = Math.max(max, quantities[i]);
+        }
+
+        int ans = 0;
+        while (min <= max) {
+            int mid = min + (max - min) / 2;
+            if (isPossible(mid, quantities, n)) {
+                ans = mid;
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    public boolean isPossible(int mid, int[] quantities, int n) {
+        int count = 0;
+        for (int i = 0; i < quantities.length; i++) {
+            count = count + (quantities[i] + mid - 1) / mid;
+
+            if (count > n) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+```
+
+or 
+
+```
+while (min < max) {
+            int mid = min + (max - min) / 2;
+            if (isPossible(mid, quantities, n)) {
+                max = mid;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return min;
+```
