@@ -1,0 +1,79 @@
+Brute force to solve this problem
+time Complexity = O(max(piles) * n);
+
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        
+
+        int min = 1;
+        int max = Integer.MIN_VALUE;
+
+        for(int i = 0; i < piles.length; i++){
+            max = Math.max(max, piles[i]);
+        }
+
+        int result = Integer.MAX_VALUE;
+        for(int i = min ; i <= max ; i++){
+            int countHour = 0;
+            for(int j = 0; j < piles.length; j++){
+
+                countHour = countHour + (piles[j]+i-1)/i;
+
+                if(countHour > h){
+                    break;
+                }
+            }
+
+            if(countHour <= h){
+                result = Math.min(result, i);
+            }
+        
+        }
+
+        return result;
+    }
+}
+
+```
+optimOptimal Approach :- O(n * log(maxPile))
+
+```
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        
+
+        int min = 1;
+        int max = Integer.MIN_VALUE;
+
+        for(int i = 0; i < piles.length; i++){
+            max = Math.max(max, piles[i]);
+        }
+        int ans = 0;
+        while(min <= max){
+            int mid = min + (max - min)/2;
+
+            if(isPossible(piles, h, mid)){
+                ans = mid;
+                max = mid-1;
+            }else{
+                min = mid+1;
+            }
+        }
+
+        return ans;
+    }
+
+    public boolean isPossible(int[] piles, int h, int k){
+        int countHour = 0;
+        for(int i = 0; i < piles.length; i++){
+
+            countHour = countHour + (piles[i]+k-1)/k;
+
+            if(countHour > h){
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
