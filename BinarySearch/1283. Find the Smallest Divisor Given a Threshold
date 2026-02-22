@@ -1,0 +1,35 @@
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+        int min = 1;
+
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            max = Math.max(max, nums[i]);
+        }
+
+        int ans = 0;
+        while (min <= max) {
+            int mid = min + (max - min) / 2;
+            if (isPossible(mid, nums, threshold)) {
+                ans = mid;
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return ans;
+
+    }
+
+      public boolean isPossible(int mid, int[] nums, int threshold) {
+
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum  = sum + (nums[i]+mid-1)/mid;
+            if (sum > threshold) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
