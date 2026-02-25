@@ -1,0 +1,35 @@
+class Solution {
+    public String reverseWords(String s) {
+        
+        String[] str = s.split(" ");
+
+        StringBuilder ans = new StringBuilder();
+
+        for(int i = 0; i < str.length; i++){
+
+            // String reverseWord = reverse(str[i]);
+            String reverseWord = new StringBuilder(str[i]).reverse().toString();
+            ans.append(reverseWord+" ");
+        }
+
+        return ans.toString().trim();
+    }
+
+    public String reverse(String str){
+
+        char[] ch = str.toCharArray();
+
+        int i = 0;
+        int j = ch.length-1;
+
+        while(j>i){
+            char temp = ch[i];
+            ch[i] = ch[j];
+            ch[j] = temp;
+            i++;
+            j--;
+        }
+
+        return new String(ch);
+    }
+}
