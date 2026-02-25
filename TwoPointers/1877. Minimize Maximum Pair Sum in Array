@@ -1,6 +1,21 @@
-Constraints:
+To minimize the maximum pair sum, you want to pair the largest number with 
+the smallest number, the second largest with the second smallest, and so on.
+Sorting helps here 
 
-n == nums.length
-2 <= n <= 105
-n is even.
-1 <= nums[i] <= 105
+class Solution {
+    public int minPairSum(int[] nums) {
+        
+        Arrays.sort(nums);
+
+        int i = 0;
+        int j = nums.length-1;
+
+        int sum  = 0;
+        while(j>i){
+            sum = Math.max(sum, nums[i]+nums[j]);
+            i++;
+            j--;
+        }
+        return sum;
+    }
+}
