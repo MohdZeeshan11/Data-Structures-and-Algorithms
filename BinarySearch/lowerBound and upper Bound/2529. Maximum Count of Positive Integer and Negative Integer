@@ -17,3 +17,47 @@ class Solution {
         return Math.max(negCount, posCount);
     }
 }
+
+optimal Solution
+
+class Solution {
+    public int maximumCount(int[] nums) {
+
+        int negCount = lowerBound(nums, 0);
+        int firstPosIndex = upperBound(nums, 0);
+        int posCount = nums.length-firstPosIndex;
+        return Math.max(negCount, posCount);
+    }
+
+    public int lowerBound(int[] nums, int target){
+        int low = 0;
+        int high = nums.length;
+
+        while(low < high){
+            int mid = low + (high-low)/2;
+
+            if(nums[mid] >= target){
+                high = mid;
+            }else{
+                low = mid+1;
+            }
+        }
+        return low;
+    }
+
+    public int upperBound(int[] nums, int target){
+        int low = 0;
+        int high = nums.length;
+
+        while(low < high){
+            int mid = low + (high-low)/2;
+
+            if(nums[mid] > target){
+                high = mid;
+            }else{
+                low = mid+1;
+            }
+        }
+        return low;
+    }
+}
