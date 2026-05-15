@@ -1,0 +1,22 @@
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target) {
+
+        char[] alphabets = new char[26];
+
+        for (int i = 0; i < letters.length; i++) {
+            char ch = letters[i];
+            int index = ch - 'a';
+            alphabets[index] = ch;
+        }
+
+        int index = target - 'a';
+        for (int i = 0; i < alphabets.length; i++) {
+            int circularIndex = (index + i + 1) % alphabets.length;
+            if (alphabets[circularIndex] != '\u0000') {
+                return alphabets[circularIndex];
+            }
+        }
+
+        return letters[0];
+    }
+}
