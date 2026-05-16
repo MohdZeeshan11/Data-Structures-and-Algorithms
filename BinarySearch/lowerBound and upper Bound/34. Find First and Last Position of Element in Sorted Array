@@ -54,3 +54,44 @@ class Solution {
         return i;
     }
 }
+
+// best way to do in using only one function
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+
+        int lowerIndex = solution(nums, target, true);
+        int upperIndex = solution(nums, target, false);
+
+        int[] ans = new int[2];
+        ans[0] = -1;
+        ans[1] = -1;
+
+        if(lowerIndex < nums.length && nums[lowerIndex] == target){
+            ans[0] =  lowerIndex;
+        }
+
+        if(upperIndex > 0 && nums[upperIndex-1] == target){
+            ans[1] = upperIndex-1;
+        }
+
+        return ans;
+    }
+
+
+    public int solution(int[] nums, int target, boolean isLower){
+        int low = 0;
+        int high = nums.length;
+
+        while(low < high){
+            int mid = low + (high-low)/2;
+
+            if(isLower ? nums[mid] >= target : nums[mid] > target){
+                high = mid;
+            }else{
+                low = mid+1;
+            }
+        }
+        return low;
+    }
+}
