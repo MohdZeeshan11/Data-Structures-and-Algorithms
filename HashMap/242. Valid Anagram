@@ -1,0 +1,52 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+
+        if (t.length() != s.length()) {
+            return false;
+        }
+
+        Map<Character, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+        }
+
+        for (int j = 0; j < t.length(); j++) {
+            
+            if(map.containsKey(t.charAt(j))){
+                int value = map.get(t.charAt(j));
+                if(value > 1){
+                    map.put(t.charAt(j), value-1);
+                }else{
+                    map.remove(t.charAt(j));
+                }
+            }else{
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+
+// with constant space
+int[] freq = new int[26];
+
+for(int i = 0; i < s.length(); i++){
+    int asciiValue = s.charAt(i) - 'a';
+    freq[asciiValue] = freq[asciiValue]+1;
+    
+}
+
+for(int i = 0; i < t.length(); i++){
+    int check = t.charAt(i) - 'a';
+    if(freq[check] != 0){
+        freq[check] = freq[check] -1;
+    }else{
+        return false;
+
+    }
+}
+
+return true;
